@@ -1,86 +1,103 @@
 import csv
 import sys
+
+
 class Books:
 
 	def __init__(self):
 		pass
-	def GetAuthor(self, FileName, SortDirection):
-		authorList = []
-		with open(FileName, 'r', newline = '') as csvfile:
+
+	def get_author(self, input_file, sort_direction):
+		author_list = []
+		with open(input_file, 'r', newline = '') as csvfile:
 			reader = csv.reader(csvfile)
 			for row in reader:
-				newAuthor = []
-				fullAuthor = str(row[2])
-				newAuthor.append(fullAuthor)
+				author_description = str(row[2])
 
-				prevChar = 'a'
-				authorLastName = ""
-				authorName = ""
-				for char in fullAuthor:
-					if char == '(':
-						newAuthor.append(authorLastName)
-						if (authorName[:-1], authorLastName[:-1]) not in authorList:
-							authorList.append((authorName[:-1], authorLastName[:-1]))
-						newAuthor[0] = fullAuthor
-						authorLastName = ""
+				prev_letter = ''
+				last_name = ""
+				full_name = ""
+				for letter in author_description:
+					if letter == '(':
+						if (full_name[:-1], 
+							last_name[:-1]) not in author_list:
+							author_list.append((full_name[:-1], 
+												last_name[:-1]))
+						last_name = ""
 
-					
-					if prevChar == ' ':
-						authorLastName = char
+					if prev_letter == ' ':
+						last_name = letter
 					else:
-						authorLastName = authorLastName + char
-					authorName = authorName + char
-					prevChar = char
-					if char == ")":
-						authorName = ""
-						authorLastName = ""
-					if authorName == " and ":
-						authorName = ""
+						last_name = last_name + letter
+					full_name = full_name + letter
+					prev_letter = letter
+					if letter == ")":
+						full_name = ""
+						last_name = ""
+					if full_name == " and ":
+						full_name = ""
 		
-		if SortDirection == "reverse":
-			authorList.sort( reverse = True)
-			print(sorted(authorList , key = lambda authorList: authorList[1] , reverse = True))
+		if sort_direction == "reverse":
+			author_list.sort( reverse = True)
+			author_list.sort(key = lambda author_list: author_list[1], 
+				reverse = True)
 		else:
-			authorList.sort()
-			print(sorted(authorList , key = lambda authorList: authorList[1]))
+			author_list.sort()
+			author_list.sort(key = lambda author_list: author_list[1])
+		
+		for author in author_list:
+			print(author[0])
 
 
 
 
-
-	def GetTitle(self, FileName, SortDirection):
-		TitleList = []
-		with open(FileName, 'r', newline = '') as csvfile:
+	def get_title(self, input_file, sort_direction):
+		title_list = []
+		with open(input_file, 'r', newline = '') as csvfile:
 			reader = csv.reader(csvfile)
 			for row in reader:
-				TitleList.append(row[0])
-		if SortDirection == "reverse":
-			print(sorted((TitleList) , reverse =True))
+				title_list.append(row[0])
+		if sort_direction == "reverse":
+			title_list.sort(reverse = True)
 		else:
-			print(sorted(TitleList))
+			title_list.sort()
+		for title in title_list:
+			print(title)
 
 
 
 
 def main():
 
-
+	#error check for number of arguments
 	if len(sys.argv) == 4:
-		FileName = sys.argv[1]
+		input_file = sys.argv[1]
 		action = sys.argv[2]
-		SortDirection = sys.argv[3]
+		sort_direction = sys.argv[3]
 	elif len(sys.argv) == 3:
-		FileName = sys.argv[1]
+		input_file = sys.argv[1]
 		action = sys.argv[2]
-		SortDirection = "forward"
+		sort_direction = "forward"
 	else:
-		print("Bad number of args")
+		print("Invalid number of arguments", file=sys.stderr)
+		quit()
+
+	#error check for sort direction
+	if(sort_direction not in ["forward", "reverse"]):
+		print("Unknown sort direction: ", sort_direction)
 		quit()
 
 
 	ourbook = Books()
 
-	ourbook.GetAuthor(FileName, SortDirection)
+	#displays requested list, along with error check for action
+	if(action == "books"):
+		ourbook.get_title(input_file, sort_direction)
+	elif(action == "authors"):
+		ourbook.get_author(input_file, sort_direction)
+	else:
+		print("Unknown action command: ", action)
+		quit()
 
 
 
