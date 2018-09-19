@@ -4,7 +4,6 @@
 import csv
 import sys
 
-
 class Books:
 
 	def __init__(self):
@@ -78,9 +77,7 @@ class Books:
 			title_list.sort()
 		for title in title_list:
 			print(title)
-
-
-
+			
 
 def main():
 
@@ -101,7 +98,6 @@ def main():
 	if(sort_direction not in ["forward", "reverse"]):
 		print("Unknown sort direction: ", sort_direction)
 		quit()
-
 
 	ourbook = Books()
 
