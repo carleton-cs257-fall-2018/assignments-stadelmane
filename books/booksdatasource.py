@@ -151,4 +151,5 @@ class BooksDataSource:
     def authors_for_book(self, book_id):
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
-        return self.books(book_id=book_id)
+        return self.authors(book_id=book_id)
+
