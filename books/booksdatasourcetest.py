@@ -21,21 +21,18 @@ class BooksDataSourceTest(unittest.TestCase):
 	def test_book_found(self):
 		self.assertEqual(self.books_data.book(6), "6,Good Omens,1990")
 
-	def test_book_unfound(self):
-		self.assertRaises(ValueError, self.books_data.book, 1000)
-
 	def test_book_invalid(self):
-		self.assertRaises(ValueError, self.books_data.book, "g")
+		self.assertRaises(ValueError, self.books_data.book, -1)
+
 
 
 
 
 	#tests for books()
-	def test_books_author_unfound(self):
-		self.assertRaises(ValueError, self.books_data.books, author_id = 1000)
+	def test_books_author_invalid(self):
+		self.assertRaises(ValueError, self.books_data.books, author_id = -1)
 
-	def test_books_invalid(self):
-		self.assertRaises(ValueError, self.books_data.books, author_id = "g")
+
 
 
 
@@ -43,19 +40,16 @@ class BooksDataSourceTest(unittest.TestCase):
 	def test_author_found(self):
 		self.assertEqual(self.books_data.author(5) , "5,Gaiman,Neil,1960,NULL")
 
-	def test_author_unfound(self):
-		self.assertRaises(ValueError, self.books_data.author, 1000)
-
 	def test_author_invalid(self):
-		self.assertRaises(ValueError, self.books_data.author, "g")
+		self.assertRaises(ValueError, self.books_data.author, -1)
+
 
 
 	#tests for authors()
-	def test_authors_book_unfound(self):
-		self.assertRaises(ValueError, self.books_data.authors, book_id = 1000)
+	def test_authors_book_invalid(self):
+		self.assertRaises(ValueError, self.books_data.authors, book_id = -1)
 
-	def test_authors_invalid(self):
-		self.assertRaises(ValueError, self.books_data.authors, book_id = "g")
+
 
 
 
@@ -67,8 +61,8 @@ class BooksDataSourceTest(unittest.TestCase):
 	def test_books_for_author_two_found(self):
 		self.assertEqual(self.books_data.books_for_author(2), "2,Beloved,1987\n22,Sula,1973")
 
-	def test_books_for_author_none_found(self):
-		self.assertRaises(ValueError, self.books_data.books_for_author, 1000)
+	def test_books_for_author_invalid(self):
+		self.assertRaises(ValueError, self.books_data.books_for_author, -1)
 
 
 
@@ -79,8 +73,8 @@ class BooksDataSourceTest(unittest.TestCase):
 	def test_authors_for_book_two_found(self):
 		self.assertEqual(self.books_data.authors_for_book(6) , "6,Gaiman,Neil,1960,Null\n6,Pratchett,Terry,1948,2018")
 
-	def test_authors_for_book_none_found(self):
-		self.assertRaises(ValueError, self.books_data.authors_for_book, 1000)
+	def test_authors_for_book_invalid(self):
+		self.assertRaises(ValueError, self.books_data.authors_for_book, -1)
 
 
 
