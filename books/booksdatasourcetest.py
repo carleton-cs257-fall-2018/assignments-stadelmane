@@ -29,7 +29,32 @@ class BooksDataSourceTest(unittest.TestCase):
 
 
 	#tests for books()
-	def test_books_author_invalid(self):
+	def test_books_author_id(self):
+		self.assertEqual(self.books_data.books(author_id = 6), "5,Emma,1815")
+
+	def test_books_search_text(self):
+		self.assertEqual(self.books_data.books(search_text = "moby dick"), 
+			"13,Moby Dick,1851")
+
+	def test_books_start_year(self):
+		self.assertEqual(self.books_data.books(start_year = 2016), "35,The Power,2016")
+
+	def test_books_end_year(self):
+		self.assertEqual(self.books_data.books(end_year = 1813), 
+			"18,Pride and Predudice,1813\n20,Sense and Sensibility,1813")
+
+	def test_books_sort_by_year(self):
+		self.assertEqual(self.books_data.books(search_text = "bl", sort_by = "year"), 
+			"43,Bleak House,1852\n3,Blackout,2010")
+
+	def test_books_multiple_parameters(self):
+		self.assertEqual(self.books_data.books(start_year = 2016, 
+			end_year = 2016, search_text = "power"),"35,The Power,2016")
+
+	def test_books_none_found(self):
+		self.assertEqual(self.books_data.books(start_year = 3000), "")
+
+	def test_books_author_id_invalid(self):
 		self.assertRaises(ValueError, self.books_data.books, author_id = -1)
 
 
@@ -46,6 +71,31 @@ class BooksDataSourceTest(unittest.TestCase):
 
 
 	#tests for authors()
+	def test_authors_book_id(self):
+		self.assertEqual(self.books_data.authors(book_id = 0), "0,Willis,Connie,1945,NULL")
+
+	def test_authors_search_text(self):
+		self.assertEqual(self.books_data.authors(search_text = "will"), 
+			"17,Cather,Willa,1873,1947\n0,Willis,Connie,1945,NULL")
+
+	# def test_authors_start_year(self):
+	# 	self.assertEqual(self.books_data.authors(start_year = 2018), "WHAT TO DO HERE")
+
+	def test_authors_end_year(self):
+		self.assertEqual(self.books_data.authors(end_year = 1776), 
+			"4,Austen,Jane,1775,1817")
+
+	# def test_authors_sort_by_year(self):
+	# 	self.assertEqual(self.books_data.authors(search_text = "will", sort_by = "birth_year"), 
+	# 		"0,Willis,Connie,1945,NULL\n17,Cather,Willa,1873,1947")
+
+	# def test_authors_multiple_parameters(self):
+	# 	self.assertEqual(self.books_data.authors(start_year = 2016, 
+	# 		end_year = 2016, search_text = "power"),"35,The Power,2016")
+
+	# def test_books_none_found(self):
+	# 	self.assertEqual(self.books_data.authors(start_year = 3000), "")
+
 	def test_authors_book_invalid(self):
 		self.assertRaises(ValueError, self.books_data.authors, book_id = -1)
 
@@ -71,7 +121,8 @@ class BooksDataSourceTest(unittest.TestCase):
 		self.assertEqual(self.books_data.authors_for_book(0) , "0,Willis,Connie,1945,NULL")
 
 	def test_authors_for_book_two_found(self):
-		self.assertEqual(self.books_data.authors_for_book(6) , "6,Gaiman,Neil,1960,Null\n6,Pratchett,Terry,1948,2018")
+		self.assertEqual(self.books_data.authors_for_book(6) , 
+			"6,Gaiman,Neil,1960,Null\n6,Pratchett,Terry,1948,2018")
 
 	def test_authors_for_book_invalid(self):
 		self.assertRaises(ValueError, self.books_data.authors_for_book, -1)
