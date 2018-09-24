@@ -6,6 +6,7 @@
     For use in some assignments at the beginning of Carleton's
     CS 257 Software Design class, Fall 2018.
 '''
+import csv
 
 class BooksDataSource:
     '''
@@ -52,6 +53,7 @@ class BooksDataSource:
                 books: ID,title,publication-year
                   e.g. 6,Good Omens,1990
                        41,Middlemarch,1871
+
                     
 
                 authors: ID,last-name,first-name,birth-year,death-year
@@ -73,7 +75,17 @@ class BooksDataSource:
             NOTE TO STUDENTS: I have not specified how you will store the books/authors
             data in a BooksDataSource object. That will be up to you, in Phase 3.
         '''
-        pass
+        with open(books_filename, 'r', newline = '') as books_file:
+            self.book_list = []
+            books_reader = csv.reader(books_file)
+            for row in books_reader:
+                new_book = {
+                  "book_id": row[0],
+                  "title": row[1],
+                  "publication_year": row[2]
+                }
+                self.book_list.append(new_book)
+
 
     def book(self, book_id):
         ''' Returns the book with the specified ID. (See the BooksDataSource comment
@@ -152,4 +164,18 @@ class BooksDataSource:
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
         return self.authors(book_id=book_id)
+
+
+
+
+def main():
+    test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
+    for entry in test_book_list.book_list:
+        print(entry)
+
+
+
+
+if __name__ == "__main__":
+    main()
 
