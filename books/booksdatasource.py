@@ -86,6 +86,19 @@ class BooksDataSource:
                 }
                 self.book_list.append(new_book)
 
+        with open(authors_filename, 'r', newline = '') as authors_file:
+            self.author_list = []
+            authors_reader = csv.reader(authors_file)
+            for row in authors_reader:
+                new_author = {
+                  "author_id": row[0],
+                  "last_name": row[1],
+                  "first_name": row[2],
+                  "birth_year": row[3],
+                  "death_year": row[4]
+                }
+                self.author_list.append(new_author)
+
 
     def book(self, book_id):
         ''' Returns the book with the specified ID. (See the BooksDataSource comment
