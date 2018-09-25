@@ -138,7 +138,52 @@ class BooksDataSource:
                 
             See the BooksDataSource comment for a description of how a book is represented.
         '''
-        return []
+
+        
+
+        found_books = self.book_list
+        if(author_id != None):
+            found_books = self.books_for_author(author_id)
+
+        if(search_text != None):
+            book_index = 0
+            while(book_index < len(found_books)):
+                if(search_text.lower() not in found_books[book_index].get("title").lower()):
+                    found_books.remove(found_books[book_index])
+                    book_index-= 1
+                book_index += 1
+
+
+        if (start_year != None):
+            book_index = 0
+            while(book_index < len(found_books)):
+                if(found_books[book_index].get("publication_year") == '' or 
+                    int(found_books[book_index].get("publication_year")) < start_year):
+                    found_books.remove(found_books[book_index])
+                    book_index -= 1
+                book_index += 1
+
+        if (end_year != None):
+            book_index = 0
+            while(book_index < len(found_books)):
+                if(found_books[book_index].get("publication_year") == '' or 
+                    int(found_books[book_index].get("publication_year")) > end_year):
+                    found_books.remove(found_books[book_index])
+                    book_index -= 1
+                book_index += 1
+
+
+        if sort_by != "year":
+            found_books = sorted(found_books, key = lambda k: k["publication_year"])
+            found_books = sorted(found_books, key = lambda k: k["title"])
+
+        if sort_by == "year":
+            found_books = sorted(found_books, key = lambda k: k["title"])
+            found_books = sorted(found_books, key = lambda k: k["publication_year"])
+
+        return found_books
+
+
 
     def author(self, author_id):
         ''' Returns the author with the specified ID. (See the BooksDataSource comment for a
@@ -170,6 +215,54 @@ class BooksDataSource:
         
             See the BooksDataSource comment for a description of how an author is represented.
         '''
+        found_authors = self.author_list
+        if(book_id != None):
+            found_authors = self.authors_for_book(book_id)
+
+        if(search_text != None):
+            author_index = 0
+            while(author_index < len(found_authors)):
+                if(search_text.lower() not in found_authors[author_index].get("last_name").lower()
+                    and search_text.lower() not in found_authors[author_index].get("first_name").lower()):
+                    found_authors.remove(found_authors[author_index])
+                    author_index-= 1
+                author_index += 1
+
+
+        if (start_year != None):
+            author_index = 0
+            while(author_index < len(found_authors)):
+                if(found_authors[author_index].get("death_year") == 'NULL' or 
+                    int(found_authors[author_index].get("death_year")) < start_year):
+                    found_authors.remove(found_authors[author_index])
+                    author_index -= 1
+                author_index += 1
+
+        if (end_year != None):
+            author_index = 0
+            while(author_index < len(found_authors)):
+                if(found_authors[author_index].get("birth_year") == 'NULL' or 
+                    int(found_authors[author_index].get("birth_year")) > end_year):
+                    found_authors.remove(found_authors[author_index])
+                    author_index -= 1
+                author_index += 1
+
+
+        if sort_by != "birth_year":
+            found_authors = sorted(found_authors, key = lambda k: k["birth_year"])
+            found_authors = sorted(found_authors, key = lambda k: k["first_name"])
+            found_authors = sorted(found_authors, key = lambda k: k["last_name"])
+
+        if sort_by == "year":
+            found_authors = sorted(found_authors, key = lambda k: k["first_name"])
+            found_authors = sorted(found_authors, key = lambda k: k["last_name"])
+            found_authors = sorted(found_authors, key = lambda k: k["birth_year"])
+
+        return found_authors
+
+
+
+
         return []
 
 
@@ -207,16 +300,11 @@ class BooksDataSource:
 
 def main():
     test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
-    # for entry in test_book_list.book_list:
-    #     print(entry)
 
-    # for entry in test_book_list.book_list:
-    #     print(entry)
-    # print(test_book_list.book(13))
-    # print(test_book_list.author(12))
 
-    print(test_book_list.books_for_author(1))
-    print(test_book_list.authors_for_book(6))
+    print(test_book_list.authors(end_year = 1776))
+
+
 
 
 
