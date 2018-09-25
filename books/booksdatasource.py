@@ -80,7 +80,7 @@ class BooksDataSource:
             books_reader = csv.reader(books_file)
             for row in books_reader:
                 new_book = {
-                  "book_id": row[0],
+                  "book_id": int(row[0]),
                   "title": row[1],
                   "publication_year": row[2]
                 }
@@ -91,7 +91,7 @@ class BooksDataSource:
             authors_reader = csv.reader(authors_file)
             for row in authors_reader:
                 new_author = {
-                  "author_id": row[0],
+                  "author_id": int(row[0]),
                   "last_name": row[1],
                   "first_name": row[2],
                   "birth_year": row[3],
@@ -99,11 +99,24 @@ class BooksDataSource:
                 }
                 self.author_list.append(new_author)
 
+        with open(books_authors_link_filename, 'r', newline = '') as match_file:
+            self.match_list = []
+            match_reader = csv.reader(match_file)
+            for row in match_reader:
+                new_match = {
+                  "book_id": int(row[0]),
+                  "author_id": int(row[1])
+                }
+                self.match_list.append(new_match)
+
+
 
     def book(self, book_id):
         ''' Returns the book with the specified ID. (See the BooksDataSource comment
             for a description of how a book is represented.) '''
-        return {}
+
+
+        return self.book_list[book_id]
 
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
         ''' Returns a list of all the books in this data source matching all of
@@ -130,7 +143,7 @@ class BooksDataSource:
     def author(self, author_id):
         ''' Returns the author with the specified ID. (See the BooksDataSource comment for a
             description of how an author is represented.) '''
-        return {}
+        return self.author_list[author_id]
 
     def authors(self, *, book_id=None, search_text=None, start_year=None, end_year=None, sort_by='birth_year'):
         ''' Returns a list of all the authors in this data source matching all of the
@@ -171,20 +184,40 @@ class BooksDataSource:
     def books_for_author(self, author_id):
         ''' Returns a list of all the books written by the author with the specified author ID.
             See the BooksDataSource comment for a description of how an book is represented. '''
-        return self.books(author_id=author_id)
+        authors_works = []
+        for match in self.match_list:
+            if match.get("author_id") == author_id:
+                authors_works.append(self.book(match.get("book_id")))
+
+
+        return authors_works
 
     def authors_for_book(self, book_id):
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
-        return self.authors(book_id=book_id)
+
+        books_contributors = []
+        for match in self.match_list:
+            if match.get("book_id") == book_id:
+                books_contributors.append(self.author(match.get("author_id")))
+        return books_contributors
 
 
 
 
 def main():
     test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
-    for entry in test_book_list.book_list:
-        print(entry)
+    # for entry in test_book_list.book_list:
+    #     print(entry)
+
+    # for entry in test_book_list.book_list:
+    #     print(entry)
+    # print(test_book_list.book(13))
+    # print(test_book_list.author(12))
+
+    print(test_book_list.books_for_author(1))
+    print(test_book_list.authors_for_book(6))
+
 
 
 
