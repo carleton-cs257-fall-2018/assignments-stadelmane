@@ -80,9 +80,9 @@ class BooksDataSource:
             books_reader = csv.reader(books_file)
             for row in books_reader:
                 new_book = {
-                  "book_id": int(row[0]),
+                  "id": int(row[0]),
                   "title": row[1],
-                  "publication_year": row[2]
+                  "publication_year": int(row[2])
                 }
                 self.book_list.append(new_book)
 
@@ -90,14 +90,18 @@ class BooksDataSource:
             self.author_list = []
             authors_reader = csv.reader(authors_file)
             for row in authors_reader:
-                new_author = {
-                  "author_id": int(row[0]),
-                  "last_name": row[1],
-                  "first_name": row[2],
-                  "birth_year": row[3],
-                  "death_year": row[4]
-                }
-                self.author_list.append(new_author)
+            	if(row[4] != "NULL"):
+            		death_year = int(row[4])
+            	else:
+            		death_year = row[4]
+            	new_author = {
+            	"id": int(row[0]),
+            	"last_name": row[1],
+            	"first_name": row[2],
+            	"birth_year": int(row[3]),
+            	"death_year": death_year
+            	}
+            	self.author_list.append(new_author)
 
         with open(books_authors_link_filename, 'r', newline = '') as match_file:
             self.match_list = []
@@ -105,7 +109,7 @@ class BooksDataSource:
             for row in match_reader:
                 new_match = {
                   "book_id": int(row[0]),
-                  "author_id": int(row[1])
+                  "id": int(row[1])
                 }
                 self.match_list.append(new_match)
 
@@ -157,8 +161,7 @@ class BooksDataSource:
         if (start_year != None):
             book_index = 0
             while(book_index < len(found_books)):
-                if(found_books[book_index].get("publication_year") == '' or 
-                    int(found_books[book_index].get("publication_year")) < start_year):
+                if(found_books[book_index].get("publication_year") < start_year):
                     found_books.remove(found_books[book_index])
                     book_index -= 1
                 book_index += 1
@@ -166,8 +169,7 @@ class BooksDataSource:
         if (end_year != None):
             book_index = 0
             while(book_index < len(found_books)):
-                if(found_books[book_index].get("publication_year") == '' or 
-                    int(found_books[book_index].get("publication_year")) > end_year):
+                if(found_books[book_index].get("publication_year") > end_year):
                     found_books.remove(found_books[book_index])
                     book_index -= 1
                 book_index += 1
@@ -232,8 +234,8 @@ class BooksDataSource:
         if (start_year != None):
             author_index = 0
             while(author_index < len(found_authors)):
-                if(found_authors[author_index].get("death_year") == 'NULL' or 
-                    int(found_authors[author_index].get("death_year")) < start_year):
+                if(found_authors[author_index].get("death_year") != "NULL" and 
+                	found_authors[author_index].get("death_year") < start_year):
                     found_authors.remove(found_authors[author_index])
                     author_index -= 1
                 author_index += 1
@@ -241,10 +243,9 @@ class BooksDataSource:
         if (end_year != None):
             author_index = 0
             while(author_index < len(found_authors)):
-                if(found_authors[author_index].get("birth_year") == 'NULL' or 
-                    int(found_authors[author_index].get("birth_year")) > end_year):
-                    found_authors.remove(found_authors[author_index])
-                    author_index -= 1
+                if(found_authors[author_index].get("birth_year") > end_year):
+                	found_authors.remove(found_authors[author_index])
+                	author_index -= 1
                 author_index += 1
 
 
@@ -262,10 +263,6 @@ class BooksDataSource:
 
 
 
-
-        return []
-
-
     # Note for my students: The following two methods provide no new functionality beyond
     # what the books(...) and authors(...) methods already provide. But they do represent a
     # category of methods known as "convenience methods". That is, they provide very simple
@@ -279,8 +276,8 @@ class BooksDataSource:
             See the BooksDataSource comment for a description of how an book is represented. '''
         authors_works = []
         for match in self.match_list:
-            if match.get("author_id") == author_id:
-                authors_works.append(self.book(match.get("book_id")))
+            if match.get("id") == author_id:
+                authors_works.append(self.book(match.get("id")))
 
 
         return authors_works
@@ -291,8 +288,8 @@ class BooksDataSource:
 
         books_contributors = []
         for match in self.match_list:
-            if match.get("book_id") == book_id:
-                books_contributors.append(self.author(match.get("author_id")))
+            if match.get("id") == book_id:
+                books_contributors.append(self.author(match.get("id")))
         return books_contributors
 
 
@@ -301,8 +298,7 @@ class BooksDataSource:
 def main():
     test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
 
-
-    print(test_book_list.authors(end_year = 1776))
+    print(test_book_list.authors(start_year = 2018))
 
 
 

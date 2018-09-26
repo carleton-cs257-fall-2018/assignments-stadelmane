@@ -20,26 +20,26 @@ class BooksDataSourceTest(unittest.TestCase):
 
 	#tests for book()
 	def test_book_found(self):
-		self.assertEqual(self.books_data.book(6), "6,Good Omens,1990")
+		self.assertEqual(self.books_data.book(6), {"id": 6, "title": "Good Omens","publication_year": 1990})
 
 	def test_book_invalid(self):
-		self.assertRaises(ValueError, self.books_data.book, -1)
+		self.assertRaises(ValueError, self.books_data.book, -1) #FIX
 
 
 	#tests for books()
 	def test_books_author_id(self):
-		self.assertEqual(self.books_data.books(author_id = 6), "5,Emma,1815")
+		self.assertEqual(self.books_data.books(author_id = 6), [{"id": 5, "title": "Emma","publication_year": 1815}])
 
 	def test_books_author_id_invalid(self):
 		self.assertRaises(ValueError, self.books_data.books, author_id = -1)
 
 	def test_books_search_text(self):
 		self.assertEqual(self.books_data.books(search_text = "moby dick"), 
-			"13,Moby Dick,1851")
+			[{"id": 13, "title": "Moby Dick", "publication_year": 1851}])
 
 	def test_books_start_year(self):
 		self.assertEqual(self.books_data.books(start_year = 2016), 
-			"35,The Power,2016")
+			[{"id": 35,"title": "The Power", "publication_year": 2016}])
 
 	def test_books_end_year(self):
 		self.assertEqual(self.books_data.books(end_year = 1813), 
