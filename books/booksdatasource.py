@@ -64,6 +64,8 @@ class BooksDataSource:
 
 	#Returns the book with the specified ID.
 	def book(self, book_id):
+		if(book_id < 0 or book_id >= len(self.book_list)):
+			raise ValueError('not a valid book_id: ', book_id)
 		return self.book_list[book_id]
 
 	#Returns a list of all the books in this data source matching all of 
@@ -122,6 +124,8 @@ class BooksDataSource:
 
 	#Returns the author with the specified ID.
 	def author(self, author_id):
+		if(author_id < 0 or author_id >= len(self.author_list)):
+			raise ValueError('not a valid author_id: ', author_id)
 		return self.author_list[author_id]
 
 
@@ -191,6 +195,9 @@ class BooksDataSource:
 	#Returns a list of all the books written by the author with the specified 
 	#author ID.
 	def books_for_author(self, author_id):
+		if(author_id < 0 or author_id >= len(self.author_list)):
+			raise ValueError('not a valid author_id: ', author_id)
+
 		authors_works = []
 		for match in self.match_list:
 			if match.get("author_id") == author_id:
@@ -201,6 +208,9 @@ class BooksDataSource:
 
 	#Returns a list of all the authors of the book with the specified book ID.
 	def authors_for_book(self, book_id):
+		if(book_id < 0 or book_id >= len(self.book_list)):
+			raise ValueError('not a valid book_id: ', book_id)
+
 		books_contributors = []
 		for match in self.match_list:
 			if match.get("book_id") == book_id:
@@ -212,7 +222,7 @@ class BooksDataSource:
 def main():
 	test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
 
-	print(test_book_list.books(author_id = 6))
+	print(test_book_list.authors_for_book(-4))
 
 
 
