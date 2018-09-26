@@ -12,7 +12,8 @@ import csv
 class BooksDataSource:
 	
 	#initialization creates a book_list, author_list, and match_list
-	def __init__(self, books_filename, authors_filename, books_authors_link_filename):
+	def __init__(self, books_filename, authors_filename, 
+		books_authors_link_filename):
 	   
 		#stores book data as a list of dictionaries with the keys:
 		#'id', 'title', and 'publication_year'
@@ -49,10 +50,10 @@ class BooksDataSource:
 
 
 		#stores match data to help link books with their authors
-		#stored as a list of dictionaries with the keys: 'book_id' and 'author_id'
-		with open(books_authors_link_filename, 'r', newline = '') as match_file:
+		#as a list of dictionaries with the keys: 'book_id' and 'author_id'
+		with open(books_authors_link_filename, 'r',newline = '') as link_file:
 			self.match_list = []
-			match_reader = csv.reader(match_file)
+			match_reader = csv.reader(link_file)
 			for row in match_reader:
 				new_match = {
 				  "book_id": int(row[0]),
@@ -65,8 +66,11 @@ class BooksDataSource:
 	def book(self, book_id):
 		return self.book_list[book_id]
 
-	#Returns a list of all the books in this data source matching all of the specified non-None criteria.
-	def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
+	#Returns a list of all the books in this data source matching all of 
+	#the specified non-None criteria.
+	def books(self, *, author_id=None, search_text=None, start_year=None, 
+					   end_year=None, sort_by='title'):
+		
 		found_books = self.book_list
 
 		#filtering by author_id, if applicable
@@ -77,7 +81,8 @@ class BooksDataSource:
 		if(search_text != None):
 			book_index = 0
 			while(book_index < len(found_books)):
-				if(search_text.lower() not in found_books[book_index].get("title").lower()):
+				if(search_text.lower() not in 
+						found_books[book_index].get("title").lower()):
 					found_books.remove(found_books[book_index])
 					book_index-= 1
 				book_index += 1
@@ -86,7 +91,8 @@ class BooksDataSource:
 		if (start_year != None):
 			book_index = 0
 			while(book_index < len(found_books)):
-				if(found_books[book_index].get("publication_year") < start_year):
+				if(found_books[book_index].get("publication_year") < 
+						start_year):
 					found_books.remove(found_books[book_index])
 					book_index -= 1
 				book_index += 1
@@ -95,19 +101,22 @@ class BooksDataSource:
 		if (end_year != None):
 			book_index = 0
 			while(book_index < len(found_books)):
-				if(found_books[book_index].get("publication_year") > end_year):
+				if(found_books[book_index].get("publication_year") > 
+						end_year):
 					found_books.remove(found_books[book_index])
 					book_index -= 1
 				book_index += 1
 
 
 		if sort_by != "year":
-			found_books = sorted(found_books, key = lambda k: k["publication_year"])
+			found_books = sorted(found_books, 
+								 key = lambda k: k["publication_year"])
 			found_books = sorted(found_books, key = lambda k: k["title"])
 
 		if sort_by == "year":
 			found_books = sorted(found_books, key = lambda k: k["title"])
-			found_books = sorted(found_books, key = lambda k: k["publication_year"])
+			found_books = sorted(found_books, 
+								 key = lambda k: k["publication_year"])
 
 		return found_books
 
@@ -116,8 +125,11 @@ class BooksDataSource:
 		return self.author_list[author_id]
 
 
-	#Returns a list of all the authors in this data source matching all of the specified non-None criteria.
-	def authors(self, *, book_id=None, search_text=None, start_year=None, end_year=None, sort_by='birth_year'):
+	#Returns a list of all the authors in this data source matching all of
+	#the specified non-None criteria.
+	def authors(self, *, book_id=None, search_text=None, start_year=None, 
+						 end_year=None, sort_by='birth_year'):
+
 		found_authors = self.author_list
 
 		#filtering by book_id, if applicable
@@ -128,8 +140,10 @@ class BooksDataSource:
 		if(search_text != None):
 			author_index = 0
 			while(author_index < len(found_authors)):
-				if(search_text.lower() not in found_authors[author_index].get("last_name").lower()
-					and search_text.lower() not in found_authors[author_index].get("first_name").lower()):
+				if(search_text.lower() not in 
+						found_authors[author_index].get("last_name").lower()
+						and search_text.lower() not in 
+						found_authors[author_index].get("first_name").lower()):
 					found_authors.remove(found_authors[author_index])
 					author_index-= 1
 				author_index += 1
@@ -138,8 +152,9 @@ class BooksDataSource:
 		if (start_year != None):
 			author_index = 0
 			while(author_index < len(found_authors)):
-				if(found_authors[author_index].get("death_year") != "NULL" and 
-					found_authors[author_index].get("death_year") < start_year):
+				if(found_authors[author_index].get("death_year") != "NULL" and
+						found_authors[author_index].get("death_year") < 
+						start_year):
 					found_authors.remove(found_authors[author_index])
 					author_index -= 1
 				author_index += 1
@@ -155,19 +170,26 @@ class BooksDataSource:
 
 
 		if sort_by != "birth_year":
-			found_authors = sorted(found_authors, key = lambda k: k["birth_year"])
-			found_authors = sorted(found_authors, key = lambda k: k["first_name"])
-			found_authors = sorted(found_authors, key = lambda k: k["last_name"])
+			found_authors = sorted(found_authors, 
+								   key = lambda k: k["birth_year"])
+			found_authors = sorted(found_authors, 
+								   key = lambda k: k["first_name"])
+			found_authors = sorted(found_authors, 
+								   key = lambda k: k["last_name"])
 
 		if sort_by == "year":
-			found_authors = sorted(found_authors, key = lambda k: k["first_name"])
-			found_authors = sorted(found_authors, key = lambda k: k["last_name"])
-			found_authors = sorted(found_authors, key = lambda k: k["birth_year"])
+			found_authors = sorted(found_authors, 
+								   key = lambda k: k["first_name"])
+			found_authors = sorted(found_authors, 
+								   key = lambda k: k["last_name"])
+			found_authors = sorted(found_authors, 
+				    			   key = lambda k: k["birth_year"])
 
 		return found_authors
 
 
-	#Returns a list of all the books written by the author with the specified author ID.
+	#Returns a list of all the books written by the author with the specified 
+	#author ID.
 	def books_for_author(self, author_id):
 		authors_works = []
 		for match in self.match_list:
