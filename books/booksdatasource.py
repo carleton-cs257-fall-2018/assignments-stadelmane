@@ -95,37 +95,14 @@ class BooksDataSource:
                 self.match_list.append(new_match)
 
 
-
+    #Returns the book with the specified ID.
     def book(self, book_id):
-        ''' Returns the book with the specified ID. (See the BooksDataSource comment
-            for a description of how a book is represented.) '''
-
-
+         
         return self.book_list[book_id]
 
+    #Returns a list of all the books in this data source matching all of the specified non-None criteria.
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
-        ''' Returns a list of all the books in this data source matching all of
-            the specified non-None criteria.
-
-                author_id - only returns books by the specified author
-                search_text - only returns books whose titles contain (case-insensitively) the search text
-                start_year - only returns books published during or after this year
-                end_year - only returns books published during or before this year
-
-            Note that parameters with value None do not affect the list of books returned.
-            Thus, for example, calling books() with no parameters will return JSON for
-            a list of all the books in the data source.
-
-            The list of books is sorted in an order depending on the sort_by parameter:
-
-                'year' -- sorts by publication_year, breaking ties with (case-insenstive) title
-                default -- sorts by (case-insensitive) title, breaking ties with publication_year
-                
-            See the BooksDataSource comment for a description of how a book is represented.
-        '''
-
         
-
         found_books = self.book_list
         if(author_id != None):
             found_books = self.books_for_author(author_id)
@@ -257,8 +234,8 @@ class BooksDataSource:
             See the BooksDataSource comment for a description of how an book is represented. '''
         authors_works = []
         for match in self.match_list:
-            if match.get("id") == author_id:
-                authors_works.append(self.book(match.get("id")))
+            if match.get("author_id") == author_id:
+                authors_works.append(self.book(match.get("book_id")))
 
 
         return authors_works
@@ -269,8 +246,8 @@ class BooksDataSource:
 
         books_contributors = []
         for match in self.match_list:
-            if match.get("id") == book_id:
-                books_contributors.append(self.author(match.get("id")))
+            if match.get("book_id") == book_id:
+                books_contributors.append(self.author(match.get("author_id")))
         return books_contributors
 
 
@@ -279,7 +256,7 @@ class BooksDataSource:
 def main():
     test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
 
-    print(test_book_list.authors(start_year = 2018))
+    print(test_book_list.books(author_id = 6))
 
 
 
