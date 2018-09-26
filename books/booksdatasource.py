@@ -217,19 +217,3 @@ class BooksDataSource:
 				books_contributors.append(self.author(match.get("author_id")))
 		
 		return books_contributors
-
-
-def main():
-	test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
-
-	print(test_book_list.authors(search_text = "will"))
-
-
-
-
-
-
-
-if __name__ == "__main__":
-	main()
-
