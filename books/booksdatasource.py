@@ -47,34 +47,9 @@ class BooksDataSource:
     '''
 
     def __init__(self, books_filename, authors_filename, books_authors_link_filename):
-        ''' Initializes this data source from the three specified  CSV files, whose
-            CSV fields are:
-
-                books: ID,title,publication-year
-                  e.g. 6,Good Omens,1990
-                       41,Middlemarch,1871
-
-                    
-
-                authors: ID,last-name,first-name,birth-year,death-year
-                  e.g. 5,Gaiman,Neil,1960,NULL
-                       6,Pratchett,Terry,1948,2015
-                       22,Eliot,George,1819,1880
-
-                link between books and authors: book_id,author_id
-                  e.g. 41,22
-                       6,5
-                       6,6
-                  
-                  [that is, book 41 was written by author 22, while book 6
-                    was written by both author 5 and author 6]
-
-            Note that NULL is used to represent a non-existent (or rather, future and
-            unknown) year in the cases of living authors.
-
-            NOTE TO STUDENTS: I have not specified how you will store the books/authors
-            data in a BooksDataSource object. That will be up to you, in Phase 3.
-        '''
+       
+       	#stores book data as a list of dictionaries with the keys:
+       	#'id', 'title', and 'publication_year'
         with open(books_filename, 'r', newline = '') as books_file:
             self.book_list = []
             books_reader = csv.reader(books_file)
@@ -86,6 +61,9 @@ class BooksDataSource:
                 }
                 self.book_list.append(new_book)
 
+
+        #stores author data as a list of dictionaries with the keys:
+       	#'id', 'last_name', 'first_name', and 'death_year'
         with open(authors_filename, 'r', newline = '') as authors_file:
             self.author_list = []
             authors_reader = csv.reader(authors_file)
@@ -103,13 +81,16 @@ class BooksDataSource:
             	}
             	self.author_list.append(new_author)
 
+
+        #stores match data to help link books with their authors
+        #stored as a list of dictionaries with the keys: 'book_id' and 'author_id'
         with open(books_authors_link_filename, 'r', newline = '') as match_file:
             self.match_list = []
             match_reader = csv.reader(match_file)
             for row in match_reader:
                 new_match = {
                   "book_id": int(row[0]),
-                  "id": int(row[1])
+                  "author_id": int(row[1])
                 }
                 self.match_list.append(new_match)
 
