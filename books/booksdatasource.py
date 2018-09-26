@@ -181,7 +181,7 @@ class BooksDataSource:
 			found_authors = sorted(found_authors, 
 								   key = lambda k: k["last_name"])
 
-		if sort_by == "year":
+		if sort_by == "birth_year":
 			found_authors = sorted(found_authors, 
 								   key = lambda k: k["first_name"])
 			found_authors = sorted(found_authors, 
@@ -222,7 +222,7 @@ class BooksDataSource:
 def main():
 	test_book_list = BooksDataSource("books.csv", "authors.csv", "books_authors.csv")
 
-	print(test_book_list.authors_for_book(-4))
+	print(test_book_list.authors(search_text = "will"))
 
 
 
