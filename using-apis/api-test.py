@@ -75,7 +75,7 @@ def main():
         print(myvariable.get_info(device_name, "device"))
 
     elif sys.argv[1].lower() != "company" and sys.argv[1].lower() != "device":
-            print("please enter either 'company' followed by a company name or 'device' followed by a device name.")
+        print("please enter either 'company' followed by a company name or 'device' followed by a device name.")
 main()
 
 
