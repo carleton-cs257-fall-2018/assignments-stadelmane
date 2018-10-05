@@ -1,0 +1,2 @@
+Eric Stadelman and Charlie Broadbent
+Our data set is a list of different soccer games from different leagues from England, Germany, Spain, France, and Italy. We downloaded all of our CSV files from http://www.football-data.co.uk/data.php. We then took the different CSV files and compiled them into one file.
