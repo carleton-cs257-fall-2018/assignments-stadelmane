@@ -2,7 +2,7 @@ Eric Stadelman and Charlie Broadbent
 
 Our data set is a list of different soccer games from different top tier leagues across the globe during the 2017/18 year. They have match stats such as goals scored, offsides, bookings for both the home and away team. The data also includes the betting odds for the games from different betting companies. We downloaded all of our CSV files from http://www.football-data.co.uk/data.php. We then took the different CSV files and compiled them into one file. To download the data you must click on the country and then select the league with the proper year.
 
-As a fan, I want to find the score of my teams game to see if they won.
+As a Tottenham fan, I want to find Tottenham game results to see if they won.
 
 As a gambler, evaluate how many goals a team scores per game / half and how many a team gives up per game / half
 
