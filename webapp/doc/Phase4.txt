@@ -15,42 +15,23 @@ CREATE TABLE matches(
 );
 
 CREATE TABLE match_stats(
-
 	id SERIAL,
-
-	result TEXT,
-	half_time_result TEXT,
-
-	home_half_time_goals INT,
-	away_half_time_goals INT,
-
 	home_goals INT,
 	away_goals INT,
-
+	result TEXT,
+	home_half_time_goals INT,
+	away_half_time_goals INT,
+	half_time_result TEXT,
 	home_shots INT,
 	away_shots INT,
-
 	home_shots_on_target INT,
 	away_shots_on_target INT,
-
-	home_shots_hit_post INT,
-	away_shots_hit_post INT,
-
-	home_corners INT,
-	away_corners INT,
-
 	home_fouls INT,
 	away_fouls INT,
-
-	home_free_kicks INT,
-	away_free_kicks INT,
-	
-	home_offsides INT,
-	away_offsides INT,
-
+	home_corners INT,
+	away_corners INT,
 	home_yellow_cards INT,
 	away_yellow_cards INT,
-
 	home_red_cards INT,
 	away_red_cards INT,
 );
@@ -63,6 +44,27 @@ CREATE TABLE match_betting_stats(
 	draw_odds INT,
 );
 	
+
+SYNOPSIS: Get the betting odds for a specific team(s) within a specified date.
+
+QUERY (GET): /betting/<team>+<team>+...+<team>/<company>+<company>...+<company>/<date>
+
+RESPONSE: a list of lists with a dictionary that contains date, home team, away team, and a dictionary that contains the betting companies name, odds for home win, draw, and away win.
+
+EXAMPLE: http://whatever.com/betting/Tottenham/bet365+Blue_Square+Stan_James/22-10-17
+
+[{‘date’: 22-10-17, ‘home_team’: ‘Tottenham’, ‘away_team’ : ‘Arsenal’ {‘company_name’:’bet365’,’home_odds':2.25, ‘draw_odds':3.5, ‘away-odds':'3.39'},
+{'Company':'Blue Square','home_odds':2.25, 'draw_odds':3.65, 'away-odds':'3.12'}]
+{'Company':'Stan James','home_odds':2.2, 'draw_odds':3.47, 'away-odds':4.6}
+
+
+SYNOPSIS: Get the specified stat(s) accumulated between specified dates of teams (all teams across all divisions, all or specified teams within one division, or specified teams across multiple divisions), or of divisions (all divisions, or specified divisions)
+
+QUERY (GET): /league/<team>+<team>+...+<team>/<stat>+<stat>...+<stat>/<date>&<date>
+
+RESPONSE: a list of dictionaries, each of which contains a team and their  accumulated stats
+
+EXAMPLE: http://whatever.com/league/Arsenal+Liverpool/HST+HS+AY/23-8-17&31-11-17 [{'team_name': 'Arsenal', 'home_shots_on_target': 66, 'home_team_shots': 87, 'away_yellow_cards' = 13}, {'team_name': 'Liverpool', 'home_shots_on_target': 54, 'home_team_shots': 90, 'away_yellow_cards' = 27}]
 
 
 
