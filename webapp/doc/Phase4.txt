@@ -1,24 +1,18 @@
+
 CREATE TABLE teams(
-	id SERIAL,
-	division TEXT,
+	id INT,
 	team TEXT,
-	matches ARRAY,
+	league TEXT
 );
 
 CREATE TABLE matches(
-	id SERIAL,
-	home_team TEXT,
-	away_name TEXT,
-	date TEXT,
-	match_stats TABLE,
-	match_betting_stats TABLE,
-);
-
-CREATE TABLE match_stats(
-	id SERIAL,
-	home_goals INT,
-	away_goals INT,
-	result TEXT,
+	id INT,
+	home_team_id INT,
+	away_team_id INT,
+	date DATE,
+	home_final_goals INT,
+	away_final_goals INT,
+	final_result TEXT,
 	home_half_time_goals INT,
 	away_half_time_goals INT,
 	half_time_result TEXT,
@@ -34,17 +28,51 @@ CREATE TABLE match_stats(
 	away_yellow_cards INT,
 	home_red_cards INT,
 	away_red_cards INT,
+	Bet_three_H REAL, 
+	Bet_three_D REAL, 
+	Bet_three_A REAL, 
+	BWH REAL, 
+	BWD REAL, 
+	BWA REAL, 
+	IWH REAL, 
+	IWD REAL, 
+	IWA REAL, 
+	LBH REAL, 
+	LBD REAL, 
+	LBA REAL, 
+	PSH REAL, 
+	PSD REAL, 
+	PSA REAL, 
+	WHH REAL, 
+	WHD REAL, 
+	WHA REAL, 
+	VCH REAL, 
+	VCD REAL, 
+	VCA REAL, 
+	Bb_one_X_two REAL, 
+	BbMxH REAL, 
+	BbAvH REAL, 
+	BbMxD REAL, 
+	BbAvD REAL, 
+	BbMxA REAL, 
+	BbAvA REAL, 
+	BbOU REAL, 
+	BbMx_g_two_point_five REAL, 
+	BbAv_g_two_point_five REAL, 
+	BbMx_l_two_point_five REAL, 
+	BbAv_l_two_point_five REAL, 
+	BbAH REAL, 
+	BbAHh REAL, 
+	BbMxAHH REAL, 
+	BbAvAHH REAL, 
+	BbMxAHA REAL, 
+	BbAvAHA REAL,
+	PSCH REAL,
+	PSCD REAL, 
+	PSCA REAL
 );
 
-CREATE TABLE match_betting_stats(
-	id SERIAL,
-	company_name TEXT,
-	home_win_odds INT,
-	away_win_odds INT,
-	draw_odds INT,
-);
 	
-
 SYNOPSIS: Get the betting odds for a specific team(s) within a specified date.
 
 QUERY (GET): /betting/<team>+<team>+...+<team>/<company>+<company>...+<company>/<date>
@@ -60,13 +88,11 @@ EXAMPLE: http://whatever.com/betting/Tottenham/bet365+Blue_Square+Stan_James/22-
 
 SYNOPSIS: Get the specified stat(s) accumulated between specified dates of teams (all teams across all divisions, all or specified teams within one division, or specified teams across multiple divisions), or of divisions (all divisions, or specified divisions)
 
-QUERY (GET): /league/<team>+<team>+...+<team>/<stat>+<stat>...+<stat>/<date>&<date>
+QUERY (GET): /stats/<league>+<league>.../<team>+<team>+...+<team>/<stat>+<stat>...+<stat>/<date>&<date>
 
 RESPONSE: a list of dictionaries, each of which contains a team and their  accumulated stats
 
 EXAMPLE: http://whatever.com/league/Arsenal+Liverpool/HST+HS+AY/23-8-17&31-11-17 [{'team_name': 'Arsenal', 'home_shots_on_target': 66, 'home_team_shots': 87, 'away_yellow_cards' = 13}, {'team_name': 'Liverpool', 'home_shots_on_target': 54, 'home_team_shots': 90, 'away_yellow_cards' = 27}]
-
-
 
 
 
