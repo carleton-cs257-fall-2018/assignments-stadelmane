@@ -1,0 +1,178 @@
+1,Arsenal,EPL
+2,Leicester,EPL
+3,Brighton,EPL
+4,Man City,EPL
+5,Chelsea,EPL
+6,Burnley,EPL
+7,Crystal Palace,EPL
+8,Huddersfield,EPL
+9,Everton,EPL
+10,Stoke,EPL
+11,Southampton,EPL
+12,Swansea,EPL
+13,Watford,EPL
+14,Liverpool,EPL
+15,West Brom,EPL
+16,Bournemouth,EPL
+17,Man United,EPL
+18,West Ham,EPL
+19,Newcastle,EPL
+20,Tottenham,EPL
+21,Den Haag,Eredivisie
+22,Utrecht,Eredivisie
+23,Heracles,Eredivisie
+24,Ajax,Eredivisie
+25,PSV Eindhoven,Eredivisie
+26,AZ Alkmaar,Eredivisie
+27,Vitesse,Eredivisie
+28,NAC Breda,Eredivisie
+29,VVV Venlo,Eredivisie
+30,Sparta Rotterdam,Eredivisie
+31,Feyenoord,Eredivisie
+32,Twente,Eredivisie
+33,Groningen,Eredivisie
+34,Heerenveen,Eredivisie
+35,Willem II,Eredivisie
+36,Excelsior,Eredivisie
+37,Zwolle,Eredivisie
+38,Roda,Eredivisie
+39,Antwerp,Jupiler League
+40,Anderlecht,Jupiler League
+41,Charleroi,Jupiler League
+42,Kortrijk,Jupiler League
+43,Eupen,Jupiler League
+44,Waregem,Jupiler League
+45,Genk,Jupiler League
+46,Waasland-Beveren,Jupiler League
+47,Lokeren,Jupiler League
+48,Club Brugge,Jupiler League
+49,Mechelen,Jupiler League
+50,Standard,Jupiler League
+51,Oostende,Jupiler League
+52,Mouscron,Jupiler League
+53,St Truiden,Jupiler League
+54,Gent,Jupiler League
+55,Celtic,Scottish Premiership
+56,Hearts,Scottish Premiership
+57,Dundee,Scottish Premiership
+58,Ross County,Scottish Premiership
+59,Hibernian,Scottish Premiership
+60,Partick,Scottish Premiership
+61,Kilmarnock,Scottish Premiership
+62,St Johnstone,Scottish Premiership
+63,Aberdeen,Scottish Premiership
+64,Hamilton,Scottish Premiership
+65,Motherwell,Scottish Premiership
+66,Rangers,Scottish Premiership
+67,Aves,Liga I
+68,Sp Lisbon,Liga I
+69,Setubal,Liga I
+70,Moreirense,Liga I
+71,Feirense,Liga I
+72,Tondela,Liga I
+73,Portimonense,Liga I
+74,Boavista,Liga I
+75,Rio Ave,Liga I
+76,Belenenses,Liga I
+77,Maritimo,Liga I
+78,Pacos Ferreira,Liga I
+79,Benfica,Liga I
+80,Sp Braga,Liga I
+81,Porto,Liga I
+82,Estoril,Liga I
+83,Guimaraes,Liga I
+84,Chaves,Liga I
+85,Leganes,La Liga
+86,Alaves,La Liga
+87,Valencia,La Liga
+88,Las Palmas,La Liga
+89,Celta,La Liga
+90,Sociedad,La Liga
+91,Girona,La Liga
+92,Ath Madrid,La Liga
+93,Sevilla,La Liga
+94,Espanol,La Liga
+95,Ath Bilbao,La Liga
+96,Getafe,La Liga
+97,Barcelona,La Liga
+98,Betis,La Liga
+99,La Coruna,La Liga
+100,Real Madrid,La Liga
+101,Levante,La Liga
+102,Villarreal,La Liga
+103,Malaga,La Liga
+104,Eibar,La Liga
+105,Buyuksehyr,Süper Lig
+106,Bursaspor,Süper Lig
+107,Akhisar Belediyespor,Süper Lig
+108,Sivasspor,Süper Lig
+109,Alanyaspor,Süper Lig
+110,Kasimpasa,Süper Lig
+111,Genclerbirligi,Süper Lig
+112,Karabukspor,Süper Lig
+113,Goztep,Süper Lig
+114,Fenerbahce,Süper Lig
+115,Besiktas,Süper Lig
+116,Antalyaspor,Süper Lig
+117,Trabzonspor,Süper Lig
+118,Konyaspor,Süper Lig
+119,Yeni Malatyaspor,Süper Lig
+120,Osmanlispor,Süper Lig
+121,Galatasaray,Süper Lig
+122,Kayserispor,Süper Lig
+123,Asteras Tripolis,Ethniki Katigoria
+124,Giannina,Ethniki Katigoria
+125,Olympiakos,Ethniki Katigoria
+126,Larisa,Ethniki Katigoria
+127,Xanthi,Ethniki Katigoria
+128,Lamia,Ethniki Katigoria
+129,AEK,Ethniki Katigoria
+130,Panetolikos,Ethniki Katigoria
+131,Kerkyra,Ethniki Katigoria
+132,Panionios,Ethniki Katigoria
+133,Levadeiakos,Ethniki Katigoria
+134,PAOK,Ethniki Katigoria
+135,Platanias,Ethniki Katigoria
+136,Panathinaikos,Ethniki Katigoria
+137,Atromitos,Ethniki Katigoria
+138,Apollon,Ethniki Katigoria
+139,Juventus,Serie A
+140,Cagliari,Serie A
+141,Verona,Serie A
+142,Napoli,Serie A
+143,Atalanta,Serie A
+144,Roma,Serie A
+145,Bologna,Serie A
+146,Torino,Serie A
+147,Crotone,Serie A
+148,Milan,Serie A
+149,Inter,Serie A
+150,Fiorentina,Serie A
+151,Lazio,Serie A
+152,Spal,Serie A
+153,Sampdoria,Serie A
+154,Benevento,Serie A
+155,Sassuolo,Serie A
+156,Genoa,Serie A
+157,Udinese,Serie A
+158,Chievo,Serie A
+159,Monaco,France Ligue 1
+160,Toulouse,France Ligue 1
+161,Lyon,France Ligue 1
+162,Strasbourg,France Ligue 1
+163,Metz,France Ligue 1
+164,Guingamp,France Ligue 1
+165,Montpellier,France Ligue 1
+166,Caen,France Ligue 1
+167,Paris SG,France Ligue 1
+168,Amiens,France Ligue 1
+169,St Etienne,France Ligue 1
+170,Nice,France Ligue 1
+171,Troyes,France Ligue 1
+172,Rennes,France Ligue 1
+173,Angers,France Ligue 1
+174,Bordeaux,France Ligue 1
+175,Lille,France Ligue 1
+176,Nantes,France Ligue 1
+177,Marseille,France Ligue 1
+178,Dijon,France Ligue 1
