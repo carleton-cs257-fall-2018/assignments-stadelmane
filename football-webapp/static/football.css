@@ -1,0 +1,62 @@
+/*
+    books.css
+    Jeff Ondich, 27 April 2016
+    Updated 6 May 2018
+
+    Styles for the "books and authors" webapp sample
+    for CS 257, Spring 2016. 
+*/
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+
+a {
+  color: #0B86B5;
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: #D8D8D8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}

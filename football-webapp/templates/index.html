@@ -1,0 +1,28 @@
+<head>
+
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='football.js') }}" defer></script>
+     <script type="text/javascript" src="{{ url_for('static', filename='football_teams.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+
+</head>
+
+<body>
+    <select id='teams' style='width:200px'>
+        
+    </select>
+    
+    <script type='text/javascript'>
+        getTeams('');
+    </script>
+
+</body>
+
+
+<body>
+<p><button id="find_data_button">Find Data</button></p>
+
+<p><table id="results_table"></table></p>
+</body>
