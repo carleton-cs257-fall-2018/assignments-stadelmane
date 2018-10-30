@@ -125,7 +125,7 @@ def get_stats():
 
     if home_team_id_string != None:
         parameters_present = True
-        query = query + 'WHERE '
+        query = query + 'WHERE ('
         home_team_id_list = home_team_id_string.split(',')
         for i in range(len(home_team_id_list)):
             if i==(len(home_team_id_list)-1):
@@ -149,45 +149,54 @@ def get_stats():
                 else:
                     query = query + 'home_team_id = ' + home_team_id_list[i] \
                             + ' OR '
+        
 
     if away_team_id_string != None:
         if parameters_present == True:
             query = query + 'OR '
         if parameters_present == False:
             parameters_present = True
-            query = query + 'WHERE '
+            query = query + 'WHERE ('
         away_team_id_list = away_team_id_string.split(',')
         for i in range(len(away_team_id_list)):
             if i==(len(away_team_id_list)-1):
                 query = query + 'away_team_id = ' + away_team_id_list[i] + ' '
             else:
                 query = query + 'away_team_id = ' + away_team_id_list[i] + ' OR '
+    query += ') '
+
 
 
     if date_string != None:
         if parameters_present == True:
-            query = query + 'AND '
+            query = query + 'AND ('
         if parameters_present == False:
-            query = query + 'WHERE '
+            query = query + 'WHERE ('
         date_list = date_string.split(',')
-        for i in range(len(date_list)):
-            if i==(len(date_list)-1):
-                if '*' in date_list[i]:
-                    date_range = date_list[i].split('*')
-                    query = query + 'date >= ' + "'" + date_range[0] + "'" + \
-                            ' AND ' + 'date <= ' + \
-                            "'" + date_range[1] + "'"
-                else:
-                    query = query + 'date = ' + "'" + date_list[i] + "'"
-            else:
-                if '*' in date_list[i]:
-                    date_range = date_list[i].split('*')
-                    query = query + 'date >= ' + "'" + date_range[0] + "'" + \
-                            ' AND ' + 'date <= ' + \
-                            "'" + date_range[1] + "'" + ' OR '
-                else:
-                    query = query + 'date = ' + "'" + date_list[i] + "'" + \
-                            ' OR '
+
+        date_range = date_list[0].split('*')
+        query +='date >= ' + "'" + date_range[0] + "'" + \
+                        ' AND ' + 'date <= ' + \
+                        "'" + date_range[1] + "')"
+
+        # for i in range(len(date_list)):
+        #     if i==(len(date_list)-1):
+        #         if '*' in date_list[i]:
+        #             date_range = date_list[i].split('*')
+        #             query = query + '(date >= ' + "'" + date_range[0] + "'" + \
+        #                     ' AND ' + 'date <= ' + \
+        #                     "'" + date_range[1] + "')"
+        #         else:
+        #             query = query + 'date = ' + "'" + date_list[i] + "')"
+        #     else:
+        #         if '*' in date_list[i]:
+        #             date_range = date_list[i].split('*')
+        #             query = query + '(date >= ' + "'" + date_range[0] + "'" + \
+        #                     ' AND ' + 'date <= ' + \
+        #                     "'" + date_range[1] + "'" + ' OR '
+        #         else:
+        #             query = query + 'date = ' + "'" + date_list[i] + "'" + \
+        #                     ' OR '
 
     for item in stats_list:
         parameters.append(item)
@@ -200,6 +209,9 @@ def get_stats():
     else:
         start = 0
 
+    query += ' ORDER BY date;'
+
+    print(query)
     if connection is not None:
         try:
             for row in get_select_query_results(connection, query):
