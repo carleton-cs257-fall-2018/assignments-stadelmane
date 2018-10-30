@@ -6,7 +6,6 @@ function initialize() {
     var element = document.getElementById('find_data_button');
     if (element) {
         element.onclick = onFindDataButtonClicked;
-    
     }
 }
 
@@ -87,7 +86,7 @@ function onFindDataButtonClicked() {
 
     }
         
-    var url = getBaseURL() + '/match_stats?home_team_id=' + IdString + '&away_team_id=' +                               IdString;
+    var url = getBaseURL() + '/match_stats?home_team_id=' + IdString + '&away_team_id=' + IdString;
     
     if (statsArray.length != 0) {
         
@@ -165,6 +164,12 @@ function onFindDataButtonClicked() {
     function buildTable(statsArray, matchStatsList) {   
         // Build the table body.
         var tableBody = '';
+
+        var optionValues = [];
+
+        $('#teams option').each(function() {
+            optionValues.push($(this).text());
+        });
         
         for (var k = 0; k < matchStatsList.length; k++) {
             
@@ -188,15 +193,46 @@ function onFindDataButtonClicked() {
                 }
                 
     
-                
-                tableBody += currentStat + ' : '+ matchStatsList[k][currentStat] + ' ';
-            
+                if (currentStat == "home_team_id" || currentStat == "away_team_id"){
+                    teamId = matchStatsList[k][currentStat];
+                    teamName = optionValues[teamId-1];
+                    if (currentStat == "home_team_id"){
+                        currentStat = "home_team";
+                    }
+                    else{
+                        currentStat = "away_team";
+
+
+                    }
+                    tableBody += currentStat + ': '+ teamName + ' ';
+
+                }
+                else{
+                    tableBody += currentStat + ': '+ matchStatsList[k][currentStat] + ' ';
+
+                }
             }
+
+
+
+
             tableBody += '</td>';
             
             
             tableBody += '</tr>';
             tableBody += '<tr></tr><tr></tr><tr></tr><td><hr></td>';
+        }
+        var tableColumns = [];
+        for (var i = 0; i < statsArray.length(); i++){
+            tableColumns.append({
+                name : statsArray[i],
+                type : 'String',
+                visible : true,
+                filterType : 'list',
+                width : 200
+            });
+        console.log(tableColumns);
+
         }
 
 
