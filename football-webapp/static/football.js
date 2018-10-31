@@ -10,7 +10,7 @@ function initialize() {
 }
 
 function getBaseURL() {
-    var baseURL = 'http://perlman.mathcs.carleton.edu:5122';
+    var baseURL = 'http://perlman.mathcs.carleton.edu:5103';
         
         //window.location.protocol + '//' + window.location.hostname + ':' + api_port;
     return baseURL;
@@ -63,7 +63,7 @@ function onFindDataButtonClicked() {
     console.log(endDate);
     
     
-    var getAllStats = false;
+    var getAllStats = true;
     
     //var teamId = parseInt(element.options[element.selectedIndex].value) + 1;
     
@@ -90,7 +90,7 @@ function onFindDataButtonClicked() {
     
     if (statsArray.length != 0) {
         
-        getAllStats = true;
+        getAllStats = false;
         
         var statsString = '';
         
@@ -163,6 +163,21 @@ function onFindDataButtonClicked() {
         
     function buildTable(statsArray, matchStatsList) {   
         // Build the table body.
+        
+        if (!getAllStats) {
+                    
+            var tempArray = statsArray.splice(0, statsArray.length - 4);
+        
+
+            for (i = 0; i <tempArray.length; i++){
+            
+                statsArray.push(tempArray[i]);
+            }
+            
+        }
+            
+        console.log(statsArray);
+        
         var tableBody = '';
 
         var optionValues = [];
@@ -171,70 +186,108 @@ function onFindDataButtonClicked() {
             optionValues.push($(this).text());
         });
         
-        for (var k = 0; k < matchStatsList.length; k++) {
+        tableBody += '<thead><tr>';
+        
+        console.log(statsArray);
+        
+        for (var j = 0; j < statsArray.length; j++) {
             
+            if (getAllStats) {
+                
+                tableBody += '<th>' + statsArray[j][j] + '</th>';
+            }
+            
+            else{
+                
+                 tableBody += '<th>' + statsArray[j] + '</th>';
+                
+            }
+           
+        }
+        
+        tableBody += '</tr></thead>';       
+        
+        tableBody += '<tbody>';
+        
+        for (var row = 0; row < matchStatsList.length; row++) {
             
             
             tableBody += '<tr>';
-            tableBody += '<td>';
             
-    
-            for (var j = 0; j < statsArray.length; j++) {
-               
+            homeTeamId = matchStatsList[row]['home_team_id'];
+            homeTeamName = optionValues[homeTeamId-1];
+            awayTeamId = matchStatsList[row]['away_team_id'];
+            awayTeamName = optionValues[awayTeamId-1];
+            
+            tableBody += '<td>' + homeTeamName + '</td>'
+            tableBody += '<td>' + awayTeamName + '</td>'
+            
+            for (var col = 2; col < statsArray.length; col++){
+                
                 if (getAllStats) {
                     
-                    var currentStat = statsArray[j];
+                    tableBody += '<td>' + matchStatsList[row][statsArray[col][col]] + '</td>';
                     
                 }
                 
                 else {
                     
-                    var currentStat = statsArray[j][j];
+                    tableBody += '<td>' + matchStatsList[row][statsArray[col]] + '</td>';
+                    
                 }
-                
-    
-                if (currentStat == "home_team_id" || currentStat == "away_team_id"){
-                    teamId = matchStatsList[k][currentStat];
-                    teamName = optionValues[teamId-1];
-                    if (currentStat == "home_team_id"){
-                        currentStat = "home_team";
-                    }
-                    else{
-                        currentStat = "away_team";
-
-
-                    }
-                    tableBody += currentStat + ': '+ teamName + ' ';
-
-                }
-                else{
-                    tableBody += currentStat + ': '+ matchStatsList[k][currentStat] + ' ';
-
-                }
-            }
-
-
-
-
-            tableBody += '</td>';
             
+                
+                
+            }
             
             tableBody += '</tr>';
-            tableBody += '<tr></tr><tr></tr><tr></tr><td><hr></td>';
+            
+            
+//            for (var j = 0; j < statsArray.length; j++) {
+//                
+//               
+//                if (getAllStats) {
+//                    
+//                    var currentStat = statsArray[j];
+//                    
+//                }
+//                
+//                else {
+//                    
+//                    var currentStat = statsArray[j][j];
+//                }
+//                
+//    
+//                if (currentStat == "home_team_id" || currentStat == "away_team_id"){
+//                    teamId = matchStatsList[k][currentStat];
+//                    teamName = optionValues[teamId-1];
+//                    if (currentStat == "home_team_id"){
+//                        currentStat = "home_team";
+//                    }
+//                    else{
+//                        currentStat = "away_team";
+//
+//
+//                    }
+//                    tableBody += currentStat + ': '+ teamName + ' ';
+//
+//                }
+//                else{
+//                    tableBody += currentStat + ': '+ matchStatsList[k][currentStat] + ' ';
+//
+//                }
+//            }
+//
+//
+//
+//
+//            tableBody += '</td>';
+            
+            
+//            tableBody += '</tr>';
+            tableBody += '<tr></tr><tr></tr><tr></tr>';
         }
-        var tableColumns = [];
-        for (var i = 0; i < statsArray.length(); i++){
-            tableColumns.append({
-                name : statsArray[i],
-                type : 'String',
-                visible : true,
-                filterType : 'list',
-                width : 200
-            });
-        console.log(tableColumns);
-
-        }
-
+        
 
         // Put the table body we just built inside the table that's already on the page.
         var resultsTableElement = document.getElementById('results_table');

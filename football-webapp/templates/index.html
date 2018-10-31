@@ -21,6 +21,8 @@
     
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
+    <link rel="stylesheet" href="{{ url_for('static', filename='pure.css') }}" />
+    
   <script>
   $( function() {
     
@@ -47,9 +49,11 @@
     <select multiple="multiple" id='stats' style='width:200px' >
     </select>
     
-    <p align="top"> Beggining Date: <input type="text" id="datepickerBEG"></p>
+    <p align="top"> Beginning Date: <input type="text" id="datepickerBEG"></p>
     
     <p align="top"> End Date: <input type="text" id="datepickerEND"></p>
+    
+    
 
 
 
@@ -59,5 +63,5 @@
 <body>
 <p align = "middle" ><button id="find_data_button"> <font size = "1000">Find Data </font></button></p>
 
-<p><table id="results_table" style='width:100%'></table></p>
+<p><table id="results_table" style='width:100%' class="pure-table"></table></p>
 </body>
