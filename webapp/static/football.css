@@ -1,0 +1,156 @@
+/*
+    books.css
+    Jeff Ondich, 27 April 2016
+    Updated 6 May 2018
+
+    Styles for the "books and authors" webapp sample
+    for CS 257, Spring 2016. 
+*/
+
+
+table {
+    border-collapse: collapse;
+    background-color: green;
+
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+
+a {
+  color: #0B86B5;
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: #D8D8D8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+body {
+  background-color: green;
+  
+}
+
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+.siteTitle { color: #ffffff; 
+             font-family: 'Raleway',sans-serif; 
+             font-size: 55px; font-weight: 800; 
+             line-height: 72px; 
+             margin: 0 0 24px; 
+             text-align: center; 
+             text-transform: uppercase; 
+  
+}
+
+.teamOptions {
+    position : relative;
+    left : 230px;
+    top : 100px;
+  
+}
+
+.statOptions {
+    position : relative;
+    left : 925px;
+    bottom : 130px;
+  
+}
+
+.startDate {
+  position : relative;
+  left : 490px;
+  bottom : 40px;
+  font-family: 'Raleway',sans-serif; 
+  font-size: 25px; 
+  font-weight: 700; 
+  line-height: 25px;
+  
+}
+
+.endDate {
+  position : relative;
+  left : 500px;
+  bottom : 35px;
+  font-family: 'Raleway',sans-serif; 
+  font-size: 25px; 
+  font-weight: 700; 
+  line-height: 25px;
+  
+}
+
+#chosenTeamsLabel {
+  position : relative;
+  left : 120px;
+  bottom : 5px;
+  font-family: 'Raleway',sans-serif; 
+  font-size: 25px; 
+  font-weight: 700; 
+  line-height: 25px;
+}
+
+#teamsOptionsLabel {
+  position : relative;
+  left : 40px;
+  bottom : 5px;
+  font-family: 'Raleway',sans-serif; 
+  font-size: 25px; 
+  font-weight: 700; 
+  line-height: 25px;
+}
+
+#statsOptionsLabel {
+  position : relative;
+  left : 50px;
+  bottom : 5px;
+  font-family: 'Raleway',sans-serif; 
+  font-size: 25px; 
+  font-weight: 700; 
+  line-height: 25px;
+}
+
+#chosenStatsLabel {
+  position : relative;
+  left :140px;
+  bottom : 5px;
+  font-family: 'Raleway',sans-serif; 
+  font-size: 25px; 
+  font-weight: 700; 
+  line-height: 25px;
+}
