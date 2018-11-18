@@ -1,0 +1,8 @@
+@font-face{
+  font-family: 'Fleftex_M';
+  src: url('Fleftex_M.ttf');
+}
+
+.root{
+  -fx-font-family: "Fleftex";
+}
