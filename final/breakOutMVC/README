@@ -1,0 +1,32 @@
+Break Out
+Eric Stadelman and Charlie Broadbent, November 2018
+Charlie Broadbent and Eric Stadelman. We want to make the once famous Blackberry game Brick Breaker. We will give the user 3 lives and have progressively more difficult levels. In the Model class, we will deal with collisions, movement of the ball and paddle.
+
+
+Our core classes:
+
+
+* Model
+   * Paddle  
+   * Bricks  
+   * Ball
+
+
+* View class
+   * Game board
+   * Status View
+      * Lives
+      * Level
+      * Bricks left
+
+
+This project is intended as an illustration of using
+the Model-View-Controller pattern in a JavaFX program.
+It was developed for Carleton College's Fall 2018
+CS257 Software Design class.
+
+Note the lack of a separate model and view class. Due to the nature of the program as an arcade game we collapsed our model into the controller since it was indistinguishable between, bricks, ball, paddle, and score. To have a separate model would be redundant. Our view is trivial, and so the Javafx suffices.
+
+The one bug that we noticed was the collision between the paddle and the ball. The error occurs when the ball were coming at a step angle towards the side of the paddle and you move the paddle towards the ball. We presume that this is because the ball is going into the paddle which causes it to rapidly switch its Y velocity. This only occurs if the paddle is moving because the top velocity of the ball is 9 or -9 and the ball radius is 10 so we eliminate that problem of the ball going into objects everywhere else.
+
+
